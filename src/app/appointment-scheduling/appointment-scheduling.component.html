@@ -1,0 +1,47 @@
+<div class="container">
+    <form>
+        <div class="title">
+            <h2>Appointment booking</h2>
+        </div>
+        <div class="form-group">
+            <label for="nameSurname">Name and surname</label>
+            <input type="nameSurname" class="form-control" id="nameSurname" name="patient"  placeholder="Enter your name and surname" [(ngModel)]="appointment.patient">
+        </div>
+        <div class="form-group">
+            <label for="jmbg">Jmbg</label>
+            <input type="jmbg" class="form-control" name="jmbg" id="jmbg" placeholder="Enter Jmbg" [(ngModel)]="appointment.jmbg">
+        </div>
+        <div class="form-group">
+            <label for="phone number">Phone number</label>
+            <input type="phone" class="form-control" id="phone" name="phone" placeholder="Enter phone number" [(ngModel)]="appointment.phone">
+        </div>
+        <div class="form-group">
+            <p>Date</p>
+            <div class="input-group">
+              <input class="form-control" placeholder="yyyy-mm-dd"
+                     name="dp" [(ngModel)]="date" ngbDatepicker #d="ngbDatepicker">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"><i class="fas fa-calendar-alt"></i></button>
+              </div>
+            </div>
+          </div>
+        <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="model">
+            <label ngbButtonLabel class="btn-primary">
+              <input ngbButton type="radio" value="30" (change)="onItemChange($event.target.value)"> Duration - 30min
+            </label>
+            <label ngbButtonLabel class="btn-primary right">
+              <input ngbButton type="radio" [value]="60" (change)="onItemChange($event.target.value)"> Duration - 60min
+            </label>
+          </div>
+        <div class="form-group">
+          <p>Time</p>
+            <ngb-timepicker [(ngModel)]="time" 
+            [hourStep]="hourStep" [minuteStep]="minuteStep"  name="time"></ngb-timepicker>  
+        </div>
+        <div class="form-group">
+          <label for="examination">Type of examination</label>
+          <input type="examination" class="form-control" id="examination" placeholder="" name="examinationType" [(ngModel)]="appointment.examinationType">
+        </div>
+        <button type="submit" class="btn btn-primary" (click)="onSubmit()">Submit</button>
+    </form>
+</div>

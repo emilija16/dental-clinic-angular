@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+
+  form {
+    .title h2 {
+      text-align: left;
+      font-size: 24px;
+    }
+    border: 1px solid rgb(182, 179, 179);
+    padding: 15px 70px;
+    .form-group {
+      margin-top: 5px;
+      input {
+        width: 250px;
+        margin-top: 5px;
+      }
+      .input-group .input-group-append {
+        button {
+          color: black;
+          border: none;
+        }
+        :hover {
+          background-color: white;
+        }
+      }
+    }
+    button {
+      margin-top: 10px;
+    }
+  }
+
+  .btn-group {
+    margin-top: 15px;
+    label.right {
+      margin-left: 5px;
+    }
+  }
+}

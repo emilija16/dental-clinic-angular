@@ -1,0 +1,28 @@
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Date</th>
+            <th scope="col">Time</th>
+            <th scope="col">Duration</th>
+            <th scope="col">JMBG</th>
+            <th scope="col">Name and Surname</th>
+            <th scope="col">Examination Type</th>
+            <th scope="col">Cancel</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let appointment of patientAppointments">
+            <th scope="row"></th>
+            <td>{{appointment.date}}</td>
+            <td>{{appointment.time}}</td>
+            <td>{{appointment.duration}}</td>
+            <td>{{appointment.jmbg}}</td>
+            <td>{{appointment.patient}}</td>
+            <td>{{appointment.examinationType}}</td>
+            <td><button class="btn btn-danger" (click)="cancel(appointment.id)">Cancel</button></td>
+          </tr>
+        </tbody>
+      </table>
+</div>
