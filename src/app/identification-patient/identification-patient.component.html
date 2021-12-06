@@ -1,0 +1,14 @@
+<div class="frame">
+    <div class="wrapper">
+        <p class="title">Enter your JMBG (Patient)</p> 
+        <form>
+          <div class="inputWithIcon">
+            <input class="singnin-input" type="text" placeholder="JMBG" [(ngModel)]="jmbg" name="jmbg">
+            <i class="fas fa-id-card"></i>
+          </div>
+        </form>
+        <p class="error-message"  *ngIf="invalidLogin">Wrong jmbg </p>
+          
+        <button class="sign-in-btn" (click)="onSubmit()">Submit</button>
+    </div>
+</div>

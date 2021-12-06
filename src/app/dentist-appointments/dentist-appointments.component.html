@@ -1,65 +1,50 @@
 <div class="container">
     <app-toggle-button (changed)="checked=$event">
     </app-toggle-button>
+    <div class="button-appointment">
+      <button class="btn btn-dark" routerLink="/appointment-scheduling"><i class="fas fa-plus" ></i> Make an appointment</button>
+    </div>
     <div class="table-daily" *ngIf="checked == true">
-    <table class="table table-bordered">
+      <div class="title"><h4><i class="far fa-calendar"></i> Daily Appointment Calendar</h4></div>
+      <table class="table table-bordered">
+        <thead>
+          <tr >
+            <th scope="col">Time</th>
+            <th scope="col">Patient</th>
+            <th scope="col">JMBG</th>
+            <th scope="col">Date</th>
+            <th scope="col">Examination Type</th>
+            <th scope="col">Contact</th>
+          </tr>
+        </thead>
         <tbody>
           <tr *ngFor="let dailyApp of dailyAppointments">
-            <td>
-                <h5>Date and time: {{dailyApp.date}} {{dailyApp.time}}</h5>
-                <div>
-                    <p>
-                        Examination type: {{dailyApp.examinationType}}
-                    </p>
-                </div>
-                <div>
-                    <p>Patient: {{dailyApp.patient}}</p>
-                </div>
-                <div>
-                    <p>Contact: {{dailyApp.phone}}</p>
-                </div>
-            </td>
+            <th scope="row" data-sortable="true" data-sorter="dateSorter">{{ getTimeFormatted(dailyApp.time) }}h</th>
+            <td>{{ dailyApp.patient }}</td>
+            <td>{{ dailyApp.jmbg }}</td>
+            <td>{{ dailyApp.date | date:'mediumDate' }}</td>
+            <td>{{ dailyApp.examinationType }}</td>
+            <td>{{ dailyApp.contact }}</td>
           </tr>
         </tbody>
       </table>
-    </div>
+      </div>
     <div class="table-weekly" *ngIf="checked == false">
-      <!-- <table class="table table-striped table-bordered">
-        <tbody>
-          <tr *ngFor="let weeklyApp of weeklyAppointments">
-            <td>
-                <h5>Date and time: {{ weeklyApp.date | date:'mediumDate' }} {{ getTimeFormatted(weeklyApp.time) }}h</h5>
-                <div>
-                    <p>
-                        Examination type: {{weeklyApp.examinationType}}
-                    </p>
-                </div>
-                <div>
-                    <p>Patient: {{weeklyApp.patient}}</p>
-                </div>
-                <div>
-                    <p>Contact: {{weeklyApp.phone}}</p>
-                </div>
-            </td>
-          </tr>
-        </tbody>
-      </table> -->
-
-      <div *ngFor="let appForDay of weeklyAppointmentsSorted | keyvalue" class="row">
-        <div class="col-12">
-          <h3>{{ dayOfWeekAsString(appForDay.key) }}</h3>
-        </div>
-        <div class="col-4" *ngFor="let appointment of appForDay.value">
-          <div class="card">
-            <h5 class="card-header">{{ appointment.patient }}</h5>
-            <div class="card-body">
-              <h5 class="card-title">Time: {{ getTimeFormatted(appointment.time) }}h</h5>
-              <p class="card-text">Date: {{ appointment.date | date:'mediumDate' }}</p>
-              <p class="card-text">Contact: {{ appointment.phone }}</p>
-              <p class="card-text">JMBG: {{ appointment.jmbg }}</p>
+        <div *ngFor="let appForDay of weeklyAppointmentsSorted | keyvalue" class="row align-content-start">
+          <div class="weekDays">
+            <h3>{{ dayOfWeekAsString(appForDay.key) }}</h3>
+          </div>
+          <div class="col-4" *ngFor="let appointment of appForDay.value">
+            <div class="card">
+              <h5 class="card-header">{{ appointment.patient }}</h5>
+              <div class="card-body">
+                <h5 class="card-title">Time: {{ getTimeFormatted(appointment.time) }}h</h5>
+                <p class="card-text">Date: {{ appointment.date | date:'mediumDate' }}</p>
+                <p class="card-text">Contact: {{ appointment.phone }}</p>
+                <p class="card-text">JMBG: {{ appointment.jmbg }}</p>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </div>      
     </div>
 </div>

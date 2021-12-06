@@ -1,5 +1,6 @@
 import { DatePipe, formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { prototype } from 'events';
 import { Appointment } from '../appointment';
 import { AppointmentService } from '../appointment.service';
 
@@ -24,12 +25,14 @@ export class DentistAppointmentsComponent implements OnInit {
     5: [],
     6: [],
   }
+  timeSorted = [];
 
   constructor(private appointmentService: AppointmentService) {}
 
   ngOnInit(): void {
     this.getDailyAppointments();
     this.getWeeklyAppointments();
+  
   }
 
   getDailyAppointments() {
@@ -41,6 +44,10 @@ export class DentistAppointmentsComponent implements OnInit {
           this.dailyAppointments.push(this.appointments[i]);
           console.log(this.dailyAppointments)
         }
+      }
+      for(let i = 0; i < this.dailyAppointments.length; i++) {
+        this.timeSorted.push(this.dailyAppointments[i].time)
+      console.log("ovo su:::" + this.timeSorted)
       }
     })
   }

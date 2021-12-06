@@ -4,11 +4,11 @@ import { Appointment } from '../appointment';
 import { AppointmentService } from '../appointment.service';
 
 @Component({
-  selector: 'app-identification',
-  templateUrl: './identification.component.html',
-  styleUrls: ['./identification.component.scss']
+  selector: 'app-identification-patient',
+  templateUrl: './identification-patient.component.html',
+  styleUrls: ['./identification-patient.component.scss']
 })
-export class IdentificationComponent implements OnInit {
+export class IdentificationPatientComponent implements OnInit {
 
   jmbg: string;
   appointmentsList: Appointment[]
@@ -25,9 +25,7 @@ export class IdentificationComponent implements OnInit {
 
   onSubmit() {
     for(let i = 0; i < this.appointmentsList.length; i++) {
-      if(this.jmbg === "12345") {
-        this.router.navigate(['dentist-appointments'])
-      } else if(this.appointmentsList[i].jmbg === this.jmbg && this.jmbg !=="12345") {
+      if(this.appointmentsList[i].jmbg === this.jmbg && this.jmbg !=="12345") {
         this.router.navigate(['patient-appointments', this.jmbg])
       } else {
         this.invalidLogin = true;

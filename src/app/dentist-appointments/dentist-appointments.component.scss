@@ -15,24 +15,62 @@
     margin-top: 20px;
   }
 
-  table {
-    width: 350px;
-    &.table-bordered > tbody > tr {
-      background-color: #ebf8f2;
+  .table-daily {
+    .title h4 {
+      i {
+        color: #3dbf87;
+      }
+    }
+    table {
+      margin-top: 20px;
+      thead {
+        background-color: #3dbf87;
+
+        tr th {
+          color: white;
+          text-align: center;
+        }
+      }
+      &.table-bordered > tbody > tr {
+        background-color: #ebf8f2;
+      }
+
+      &.table-bordered > tbody > tr:nth-child(2n + 1) > td,
+      .table-bordered > tbody > tr:nth-child(2n + 1) > th {
+        background-color: white;
+      }
+      tbody {
+        tr th,
+        td {
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .table-weekly {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    .weekDays {
+      h3 {
+        font-family: Lato, sans-serif;
+        padding: 10px;
+      }
     }
 
-    &.table-bordered > tbody > tr:nth-child(2n + 1) > td,
-    .table-bordered > tbody > tr:nth-child(2n + 1) > th {
-      background-color: #fff6f8;
+    .col-4 {
+      width: 100%;
+      .card {
+        height: auto;
+        .card-header {
+          background-color: #3dbf87;
+          color: white;
+        }
+      }
     }
+  }
 
-    &.table-striped > tbody > tr:nth-child(2n + 1) > td,
-    .table-striped > tbody > tr:nth-child(2n + 1) > th {
-      background-color: #ebf8f2;
-    }
-
-    &.table-striped > tbody > tr {
-      background-color: #fff6f8;
-    }
+  .button-appointment {
+    float: right;
   }
 }

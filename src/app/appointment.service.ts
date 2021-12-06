@@ -2,6 +2,7 @@ import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Appointment } from "./appointment";
+import { Dentist } from "./dentist";
 
 @Injectable({
     providedIn: 'root'
@@ -10,6 +11,7 @@ import { Appointment } from "./appointment";
 
     baseURL = "http://localhost:8080/appointments"
     weeklyAppointmentsURL = "http://localhost:8080/appointments/appointmentsWeekly"
+    dentists = "http://localhost:8080/appointments/dentists"
 
     constructor(private http: HttpClient) {}
 
@@ -27,5 +29,9 @@ import { Appointment } from "./appointment";
 
     getWeeklyAppointments(): Observable<Appointment[]> {
       return this.http.get<Appointment[]>(this.weeklyAppointmentsURL)
+    }
+
+    getDentists(): Observable<Dentist[]> {
+      return this.http.get<Dentist[]>(this.dentists);
     }
   }

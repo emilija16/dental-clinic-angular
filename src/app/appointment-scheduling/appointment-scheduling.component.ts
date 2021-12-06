@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbDateStruct, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
+import { FormControl } from '@angular/forms';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Appointment } from '../appointment';
 import { AppointmentService } from '../appointment.service';
 
@@ -15,15 +16,17 @@ export class AppointmentSchedulingComponent implements OnInit {
   time: {hour: 13, minute: 30};
   hourStep = 1;
   minuteStep = 30;
-  model = "";
   duration = 0;
-  vreme = "";
   date: NgbDateStruct;
+  invalidData = false;
 
-  constructor(private appointmentService: AppointmentService) { 
+  constructor(private appointmentService: AppointmentService) {}
+
+  ngOnInit(): void {
   }
+
   onItemChange(value){
-    console.log(" Value is : ", value );
+    console.log(" Value is : ", value);
     if(value === "60") {
       this.minuteStep = 0;
     }
@@ -31,32 +34,30 @@ export class AppointmentSchedulingComponent implements OnInit {
  }
 
  saveAppointment() {
-  //  if(this.time.hour < 10 || this.time.minute < 10) {
-  //    this.vreme = "0" + this.time.hour + ":" + "0" + this.time.minute;
-  //  } else {
-    this.vreme =  this.time.hour + ":" + this.time.minute;
-  //  }
-  this.appointment.time = this.vreme;
-  console.log("vreme: " + this.vreme)
-  const dateFormatm = this.date.year + "-" + this.date.month + "-" + "0" +this.date.day;
+  const dateFormat = this.date.year + "-" +
+  [(this.date.month < 10 ? ('0' + this.date.month) : this.date.month),
+  (this.date.day < 10 ? ('0' + this.date.day) : this.date.day)].join("-");
+  console.log("ovo je formatiran datum: " + dateFormat);
+  this.appointment.date = dateFormat;
 
-  if(this.date.day < 10) {
-    this.appointment.date = dateFormatm;
-
+  const timeFormat = [(this.time.hour < 10 ? ('0' + this.time.hour) : this.time.hour),
+  (this.time.minute < 10 ? ('0' + this.time.minute) : this.time.minute)].join(":");
+  console.log("ovo je formatirano vreme: " + timeFormat);
+  if(this.time.hour >= 9 && this.time.hour <= 17) {
+    this.appointment.time = timeFormat;
+    this.invalidData = true;
   }
-   const dateFormat = this.date.year + "-" + this.date.month + "-" + this.date.day;
-   console.log("datum: " + this.appointment.date)
- 
-   this.appointment.duration = this.duration;
-   this.appointmentService.save(this.appointment).subscribe(data => {
+  else {
+    return this.invalidData = true;
+  }
+  this.appointment.duration = this.duration;
+    this.appointmentService.save(this.appointment).subscribe(data => {
     console.log(data)
-  })
- }
+    }
+  )
+}
 
- onSubmit() {
-   this.saveAppointment()
- }
-  ngOnInit(): void {
-    
+  onSubmit() {
+    this.saveAppointment()
   }
 }

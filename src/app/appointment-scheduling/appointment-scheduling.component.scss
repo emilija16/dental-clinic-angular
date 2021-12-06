@@ -38,4 +38,13 @@
       margin-left: 5px;
     }
   }
+
+  .error-message {
+    color: red;
+    position: absolute;
+    font-weight: 500;
+    // margin-left: 60px;
+    font-size: 14px;
+    margin-top: -10px;
+  }
 }

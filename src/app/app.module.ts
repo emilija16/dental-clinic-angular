@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppointmentSchedulingComponent } from './appointment-scheduling/appointment-scheduling.component';
-import { IdentificationComponent } from './identification/identification.component';
+import { IdentificationPatientComponent } from './identification-patient/identification-patient.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppointmentService } from './appointment.service';
@@ -13,16 +13,18 @@ import { DentistAppointmentsComponent } from './dentist-appointments/dentist-app
 import { PatientAppointmentsComponent } from './patient-appointments/patient-appointments.component';
 import { ToggleButtonComponent } from './toggle-button/toggle-button.component';
 import { DatePipe } from '@angular/common';
+import { IdentificationDentistComponent } from './identification-dentist/identification-dentist.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     AppointmentSchedulingComponent,
-    IdentificationComponent,
+    IdentificationPatientComponent,
     DentistAppointmentsComponent,
     PatientAppointmentsComponent,
-    ToggleButtonComponent
+    ToggleButtonComponent,
+    IdentificationDentistComponent,
   ],
   imports: [
     BrowserModule,

@@ -12,6 +12,7 @@ export class PatientAppointmentsComponent implements OnInit {
 
   appointments: Appointment[];
   patientAppointments: Appointment[] = [];
+  invalidCancel = false;
 
   constructor(private appointmentService: AppointmentService, private route: ActivatedRoute) { }
 
