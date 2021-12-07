@@ -5,16 +5,20 @@
         </div>
         <div class="form-group">
             <label for="nameSurname">Name and surname</label>
-            <input type="nameSurname" class="form-control" id="nameSurname" name="patient"  placeholder="Enter your name and surname" [(ngModel)]="appointment.patient" required>
+            <input type="text" class="form-control" id="nameSurname" name="patient"  placeholder="Enter your name and surname" [(ngModel)]="appointment.patient" required>
         </div>
         <div class="form-group">
             <label for="jmbg">Jmbg</label>
-            <input type="jmbg" class="form-control" name="jmbg" id="jmbg" placeholder="Enter Jmbg" [(ngModel)]="appointment.jmbg">
+            <input type="text" class="form-control" name="jmbg" id="jmbg" placeholder="Enter Jmbg" [(ngModel)]="appointment.jmbg">
         </div>
         <div class="form-group">
             <label for="phone number">Phone number</label>
-            <input type="phone" class="form-control" id="phone" name="phone" placeholder="Enter phone number" [(ngModel)]="appointment.phone">
+            <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter phone number" [(ngModel)]="appointment.phone">
         </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" [(ngModel)]="appointment.email">
+      </div>
         <div class="form-group">
             <p>Date</p>
             <div class="input-group">
@@ -23,6 +27,9 @@
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"><i class="fas fa-calendar-alt"></i></button>
               </div>
+            </div>
+            <div>
+              <p class="error-message"  *ngIf="invalidDate">The date you selected is in the past. </p>
             </div>
           </div>
         <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic">
@@ -38,7 +45,10 @@
             <ngb-timepicker [(ngModel)]="time" 
             [hourStep]="hourStep" [minuteStep]="minuteStep"  name="time"></ngb-timepicker>
             <div>
-              <p class="error-message"  *ngIf="invalidData">Working hours are 9:00 a.m. to 5:00 p.m. </p>
+              <p class="error-message"  *ngIf="invalidTime">Working hours are 9:00 a.m. to 5:00 p.m. </p>
+            </div>
+            <div>
+              <p class="error-message"  *ngIf="appointmentExists">The appointment is busy. </p>
             </div>
         </div>
         <div class="form-group">

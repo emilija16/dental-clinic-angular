@@ -1,8 +1,8 @@
-import { DatePipe, formatDate } from '@angular/common';
+import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { prototype } from 'events';
 import { Appointment } from '../appointment';
 import { AppointmentService } from '../appointment.service';
+import { Dentist } from '../dentist';
 
 @Component({
   selector: 'app-dentist-appointments',
@@ -26,13 +26,18 @@ export class DentistAppointmentsComponent implements OnInit {
     6: [],
   }
   timeSorted = [];
+  invalidCancelDaily = false;
+  invalidCancelWeekly = false;
+  dentists: Dentist[];
+  dentist: Dentist = new Dentist()
+  displayMessage = false;
 
   constructor(private appointmentService: AppointmentService) {}
 
   ngOnInit(): void {
     this.getDailyAppointments();
     this.getWeeklyAppointments();
-  
+    this.getDentistsFromService();
   }
 
   getDailyAppointments() {
@@ -47,7 +52,6 @@ export class DentistAppointmentsComponent implements OnInit {
       }
       for(let i = 0; i < this.dailyAppointments.length; i++) {
         this.timeSorted.push(this.dailyAppointments[i].time)
-      console.log("ovo su:::" + this.timeSorted)
       }
     })
   }
@@ -75,14 +79,11 @@ export class DentistAppointmentsComponent implements OnInit {
       console.log('-----------------------');
       this.weeklyAppointmentsSorted[dayOfWeek].push(appointment);
     }
-
     console.log(this.weeklyAppointmentsSorted);
   }
 
   getAppointmentDateObject(date: string) {
     var parts = date.split('-');
-    // Please pay attention to the month (parts[1]); JavaScript counts months from 0:
-    // January - 0, February - 1, etc.
     return new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
   }
 
@@ -93,5 +94,37 @@ export class DentistAppointmentsComponent implements OnInit {
   getTimeFormatted(time: string) {
     const parts = time.split(':');
     return parts[0] + ':' + parts[1];
+  }
+
+  cancelAppointmentDaily(id: number): void {
+    this.appointmentService.cancelAppointment(id).subscribe(() => {
+      const canceledAppointment = this.dailyAppointments.find(x => x.id === id);
+      this.dailyAppointments.splice(this.dailyAppointments.indexOf(canceledAppointment), 1);
+    }, error => {
+      this.invalidCancelDaily = true;
+    })
+  }
+
+  cancelAppointmentWeekly(id: number): void {
+    this.appointmentService.cancelAppointment(id).subscribe(() => {
+    }, error => {
+      this.invalidCancelWeekly = true;
+    })
+  }
+
+  getDentistsFromService() {
+    this.appointmentService.getDentists().subscribe(data => {
+      this.dentists = data;
+      this.dentist = this.dentists[0]
+      }
+    )  
+  }
+
+  onSubmit() {
+    this.appointmentService.changeCancellationDeadline(this.dentist).subscribe(data => {
+    this.displayMessage = true;
+    },
+    error => console.log(error))
+
   }
 }

@@ -1,4 +1,3 @@
-
 export class Appointment {
     public id:number;
     public patient: string;
@@ -9,4 +8,5 @@ export class Appointment {
     public examinationType: string;
     public duration: number;
     public canceled: boolean;
+    public email: string;
 }

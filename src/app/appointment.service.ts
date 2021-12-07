@@ -34,4 +34,8 @@ import { Dentist } from "./dentist";
     getDentists(): Observable<Dentist[]> {
       return this.http.get<Dentist[]>(this.dentists);
     }
+
+    changeCancellationDeadline(dentist: Dentist): Observable<Object> {
+      return this.http.put(this.baseURL, dentist);
+    }  
   }

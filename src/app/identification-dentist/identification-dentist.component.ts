@@ -11,7 +11,7 @@ import { Dentist } from '../dentist';
 export class IdentificationDentistComponent implements OnInit {
 
   jmbg: string;
-  invalidLogin= false;
+  invalidJmbg = false;
   dentistJmbg = "";
 
   constructor(private router: Router, private appointmnentService: AppointmentService) {}
@@ -30,7 +30,7 @@ export class IdentificationDentistComponent implements OnInit {
     if(this.jmbg === this.dentistJmbg) {
       this.router.navigate(['dentist-appointments'])
     } else {
-      this.invalidLogin = true;
+      this.invalidJmbg = true;
     }
   }
 }

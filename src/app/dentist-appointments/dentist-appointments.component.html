@@ -1,9 +1,19 @@
 <div class="container">
-    <app-toggle-button (changed)="checked=$event">
-    </app-toggle-button>
-    <div class="button-appointment">
+  <div class="content-right">
+    <div class="row">
+      <div class="col col-left">
+        <label for="">Change cancellation deadline</label>
+        <input type="number" [(ngModel)]="dentist.cancellationDeadline" name="cancellationDeadline">
+        <button class="btn btn-dark btn-sm" (click)="onSubmit()">Save</button>
+        <p class="successfully-message" *ngIf="displayMessage">Cancellation deadline has been changed!</p>
+      </div>
+    <div class="col">
       <button class="btn btn-dark" routerLink="/appointment-scheduling"><i class="fas fa-plus" ></i> Make an appointment</button>
     </div>
+  </div>
+</div> 
+    <app-toggle-button (changed)="checked=$event">
+    </app-toggle-button>
     <div class="table-daily" *ngIf="checked == true">
       <div class="title"><h4><i class="far fa-calendar"></i> Daily Appointment Calendar</h4></div>
       <table class="table table-bordered">
@@ -14,7 +24,9 @@
             <th scope="col">JMBG</th>
             <th scope="col">Date</th>
             <th scope="col">Examination Type</th>
-            <th scope="col">Contact</th>
+            <th scope="col">Contact Phone</th>
+            <th scope="col">Email</th>
+            <th scope="col">Cancel</th>
           </tr>
         </thead>
         <tbody>
@@ -24,10 +36,13 @@
             <td>{{ dailyApp.jmbg }}</td>
             <td>{{ dailyApp.date | date:'mediumDate' }}</td>
             <td>{{ dailyApp.examinationType }}</td>
-            <td>{{ dailyApp.contact }}</td>
+            <td>{{ dailyApp.phone }}</td>
+            <td>{{ dailyApp.email }}</td>
+            <td><button class="btn btn-danger" (click)="cancelAppointmentDaily(dailyApp.id)">Cancel</button></td>
           </tr>
         </tbody>
       </table>
+      <p class="error-message" *ngIf="invalidCancelDaily">Appointment can't be canceled! Cancellation deadline: 24h</p>
       </div>
     <div class="table-weekly" *ngIf="checked == false">
         <div *ngFor="let appForDay of weeklyAppointmentsSorted | keyvalue" class="row align-content-start">
@@ -39,12 +54,16 @@
               <h5 class="card-header">{{ appointment.patient }}</h5>
               <div class="card-body">
                 <h5 class="card-title">Time: {{ getTimeFormatted(appointment.time) }}h</h5>
+                <p class="card-text">JMBG: {{ appointment.jmbg }}</p>
                 <p class="card-text">Date: {{ appointment.date | date:'mediumDate' }}</p>
                 <p class="card-text">Contact: {{ appointment.phone }}</p>
-                <p class="card-text">JMBG: {{ appointment.jmbg }}</p>
+                <p class="card-text">Email: {{ appointment.email }}</p>
+                <button class="btn btn-danger btn-sm" (click)="cancelAppointmentWeekly(appointment.id)">Cancel</button>
               </div>
             </div>
           </div>
+
         </div>      
     </div>
-</div>
+    <p class="error-message" *ngIf="invalidCancelWeekly">Appointment can't be canceled! Cancellation deadline: 24h</p>
+  </div>

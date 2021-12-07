@@ -37,8 +37,8 @@ export class PatientAppointmentsComponent implements OnInit {
     this.appointmentService.cancelAppointment(id).subscribe(() => {
       const canceledAppointment = this.patientAppointments.find(x => x.id === id);
       this.patientAppointments.splice(this.patientAppointments.indexOf(canceledAppointment), 1);
-    }
-      
-    )
+    }, error => {
+      this.invalidCancel = true;
+    })
   }
 }

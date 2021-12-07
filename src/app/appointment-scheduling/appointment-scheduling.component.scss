@@ -12,7 +12,7 @@
     border: 1px solid rgb(182, 179, 179);
     padding: 15px 70px;
     .form-group {
-      margin-top: 5px;
+      margin-top: 15px;
       input {
         width: 250px;
         margin-top: 5px;
@@ -33,7 +33,7 @@
   }
 
   .btn-group {
-    margin-top: 15px;
+    margin-top: 30px;
     label.right {
       margin-left: 5px;
     }
@@ -43,8 +43,6 @@
     color: red;
     position: absolute;
     font-weight: 500;
-    // margin-left: 60px;
     font-size: 14px;
-    margin-top: -10px;
   }
 }

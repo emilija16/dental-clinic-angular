@@ -12,7 +12,7 @@ export class IdentificationPatientComponent implements OnInit {
 
   jmbg: string;
   appointmentsList: Appointment[]
-  invalidLogin= false;
+  invalidJmbg= false;
 
   constructor(private appointmentService: AppointmentService, private router: Router) { }
 
@@ -25,10 +25,10 @@ export class IdentificationPatientComponent implements OnInit {
 
   onSubmit() {
     for(let i = 0; i < this.appointmentsList.length; i++) {
-      if(this.appointmentsList[i].jmbg === this.jmbg && this.jmbg !=="12345") {
+      if(this.appointmentsList[i].jmbg === this.jmbg) {
         this.router.navigate(['patient-appointments', this.jmbg])
       } else {
-        this.invalidLogin = true;
+        this.invalidJmbg = true;
       }
     }
   }

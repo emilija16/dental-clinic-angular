@@ -8,6 +8,7 @@
             <th scope="col">Duration</th>
             <th scope="col">JMBG</th>
             <th scope="col">Name and Surname</th>
+            <th scope="col">Email</th>
             <th scope="col">Examination Type</th>
             <th scope="col">Cancel</th>
           </tr>
@@ -20,9 +21,13 @@
             <td>{{appointment.duration}}</td>
             <td>{{appointment.jmbg}}</td>
             <td>{{appointment.patient}}</td>
+            <td>{{appointment.email}}</td>
             <td>{{appointment.examinationType}}</td>
             <td><button class="btn btn-danger" (click)="cancel(appointment.id)">Cancel</button></td>
           </tr>
         </tbody>
       </table>
+</div>
+<div class="error-message" *ngIf="invalidCancel">
+  <p>Appointment can't be canceled! Cancellation deadline: 24h</p>
 </div>

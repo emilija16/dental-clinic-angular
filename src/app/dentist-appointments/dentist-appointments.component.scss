@@ -73,4 +73,38 @@
   .button-appointment {
     float: right;
   }
+  p.error-message {
+    color: red;
+    font-weight: 500;
+    font-size: 18px;
+    margin-top: 15px;
+  }
+
+  .content-right {
+    float: right;
+
+    input {
+      width: 100px;
+    }
+
+    .col.col-left {
+      margin-top: -17px;
+      padding: 5px;
+      margin-right: 50px;
+      label {
+        font-weight: 700;
+      }
+      p.successfully-message {
+        color: green;
+        font-weight: 500;
+        font-size: 16px;
+        margin-top: 5px;
+      }
+    }
+
+    button {
+      margin-left: 5px;
+      padding: 2px 12px;
+    }
+  }
 }
