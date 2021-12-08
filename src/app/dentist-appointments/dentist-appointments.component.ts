@@ -1,5 +1,6 @@
 import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Appointment } from '../appointment';
 import { AppointmentService } from '../appointment.service';
 import { Dentist } from '../dentist';
@@ -32,7 +33,7 @@ export class DentistAppointmentsComponent implements OnInit {
   dentist: Dentist = new Dentist()
   displayMessage = false;
 
-  constructor(private appointmentService: AppointmentService) {}
+  constructor(private appointmentService: AppointmentService, private router: Router) {}
 
   ngOnInit(): void {
     this.getDailyAppointments();
@@ -59,6 +60,7 @@ export class DentistAppointmentsComponent implements OnInit {
   getWeeklyAppointments() {
     this.appointmentService.getWeeklyAppointments()
     .subscribe(appointments => {
+      console.log(appointments)
       // Add weekly appointments with formatted date objects
       for (const appointment of appointments) {
         appointment.date = this.getAppointmentDateObject(appointment.date);
@@ -107,6 +109,7 @@ export class DentistAppointmentsComponent implements OnInit {
 
   cancelAppointmentWeekly(id: number): void {
     this.appointmentService.cancelAppointment(id).subscribe(() => {
+      alert("Cancelled successfully!")
     }, error => {
       this.invalidCancelWeekly = true;
     })

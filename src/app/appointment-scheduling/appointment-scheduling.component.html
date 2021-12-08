@@ -6,18 +6,23 @@
         <div class="form-group">
             <label for="nameSurname">Name and surname</label>
             <input type="text" class="form-control" id="nameSurname" name="patient"  placeholder="Enter your name and surname" [(ngModel)]="appointment.patient" required>
-        </div>
+          </div>
         <div class="form-group">
             <label for="jmbg">Jmbg</label>
             <input type="text" class="form-control" name="jmbg" id="jmbg" placeholder="Enter Jmbg" [(ngModel)]="appointment.jmbg">
         </div>
         <div class="form-group">
             <label for="phone number">Phone number</label>
-            <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter phone number" [(ngModel)]="appointment.phone">
+            <input type="text" class="form-control" id="phone" name="phone" #phone placeholder="Enter phone number" required [(ngModel)]="appointment.phone">
         </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" [(ngModel)]="appointment.email">
+      <div class="form-group">
+        <input type="text" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" 
+               id="email" name="email" [(ngModel)]="appointment.email" #email="ngModel" placeholder="Email">
+        <div *ngIf="email.errors &&(email.touched || email.dirty)" class="alert alert-danger">
+          <div [hidden]="!email.errors?.pattern">
+            Invalid pattern
+          </div>
+        </div>
       </div>
         <div class="form-group">
             <p>Date</p>
@@ -34,7 +39,7 @@
           </div>
         <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic">
             <label ngbButtonLabel class="btn-primary">
-              <input ngbButton type="radio" value="30" (change)="onItemChange($event.target.value)"> Duration - 30min
+              <input ngbButton type="radio" [value]="30" (change)="onItemChange($event.target.value)" > Duration - 30min
             </label>
             <label ngbButtonLabel class="btn-primary right">
               <input ngbButton type="radio" [value]="60" (change)="onItemChange($event.target.value)"> Duration - 60min
@@ -42,13 +47,10 @@
           </div>
         <div class="form-group">
           <p>Time</p>
-            <ngb-timepicker [(ngModel)]="time" 
+            <ngb-timepicker [(ngModel)]="time" [disabled]="disabledTimePicker"
             [hourStep]="hourStep" [minuteStep]="minuteStep"  name="time"></ngb-timepicker>
             <div>
               <p class="error-message"  *ngIf="invalidTime">Working hours are 9:00 a.m. to 5:00 p.m. </p>
-            </div>
-            <div>
-              <p class="error-message"  *ngIf="appointmentExists">The appointment is busy. </p>
             </div>
         </div>
         <div class="form-group">

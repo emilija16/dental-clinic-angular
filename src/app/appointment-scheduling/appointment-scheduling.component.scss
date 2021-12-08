@@ -26,9 +26,17 @@
           background-color: white;
         }
       }
+
+      .alert.alert-danger {
+        background-color: white;
+        height: 100%;
+        padding: 0px;
+        border: none;
+        color: red;
+      }
     }
     button {
-      margin-top: 10px;
+      margin-top: 20px;
     }
   }
 

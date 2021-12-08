@@ -24,7 +24,7 @@ export class AppointmentSchedulingComponent implements OnInit {
   invalidDate = false;
   appointmentExists = false;
   invalidData = false;
-  errorMessage=""
+  disabledTimePicker = true;
 
   constructor(private appointmentService: AppointmentService) {}
 
@@ -34,6 +34,9 @@ export class AppointmentSchedulingComponent implements OnInit {
 
   onItemChange(value){
     console.log(" Value is : ", value);
+    if(value !== null) {
+      this.disabledTimePicker = false;
+    }
     if(value === "60") {
       this.minuteStep = 0;
     }
@@ -48,7 +51,6 @@ export class AppointmentSchedulingComponent implements OnInit {
 
   // Format Today Date
   const todayDateFormat = formatDate(this.today, 'yyyy-MM-dd', 'en-US');
-  // Provera
   if(dateFormat < todayDateFormat) {
     return this.invalidDate = true;
   } else {
@@ -72,13 +74,13 @@ export class AppointmentSchedulingComponent implements OnInit {
        return this.appointmentExists = true;
     }
     this.appointmentExists = false;
-  }
+    }
  
-  this.appointment.duration = this.duration;
+    this.appointment.duration = this.duration;
 
     this.appointmentService.save(this.appointment).subscribe(data => {
     console.log(data)
-    alert("Successfully scheduled appointment!")
+    alert("Successfully scheduled appointment! Check your email!")
     }
   )
 }
