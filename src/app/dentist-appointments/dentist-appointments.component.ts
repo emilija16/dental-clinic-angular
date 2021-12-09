@@ -42,19 +42,24 @@ export class DentistAppointmentsComponent implements OnInit {
   }
 
   getDailyAppointments() {
-    const dateFormat = formatDate(this.today, 'yyyy-MM-dd', 'en-US');
-    this.appointmentService.getAllAppointments().subscribe(data => {
-      this.appointments = data;
-      for(let i = 0; i < this.appointments.length; i++) {
-        if(this.appointments[i].date === dateFormat) {
-          this.dailyAppointments.push(this.appointments[i]);
-          console.log(this.dailyAppointments)
+    if(localStorage.getItem("dentistJmbg") !== null) {
+      const dateFormat = formatDate(this.today, 'yyyy-MM-dd', 'en-US');
+      this.appointmentService.getAllAppointments().subscribe(data => {
+        this.appointments = data;
+        for(let i = 0; i < this.appointments.length; i++) {
+          if(this.appointments[i].date === dateFormat) {
+            this.dailyAppointments.push(this.appointments[i]);
+            console.log(this.dailyAppointments)
+          }
         }
-      }
-      for(let i = 0; i < this.dailyAppointments.length; i++) {
-        this.timeSorted.push(this.dailyAppointments[i].time)
-      }
-    })
+        for(let i = 0; i < this.dailyAppointments.length; i++) {
+          this.timeSorted.push(this.dailyAppointments[i].time)
+        }
+      })
+    }
+    else {
+      this.router.navigate(['identification-dentist'])
+    }
   }
 
   getWeeklyAppointments() {
@@ -110,6 +115,48 @@ export class DentistAppointmentsComponent implements OnInit {
   cancelAppointmentWeekly(id: number): void {
     this.appointmentService.cancelAppointment(id).subscribe(() => {
       alert("Cancelled successfully!")
+      // brisanje iz niza
+      // this.weeklyAppointmentsSorted = {
+      //   0: [],
+      //   1: [],
+      //   2: [],
+      //   3: [],
+      //   4: [],
+      //   5: [],
+      //   6: [],
+      // }
+      // this.getWeeklyAppointments();
+      // for(let i = 0; i < this.weeklyAppointments.length; i++) {
+      // for(let i = 0; i < this.weeklyAppointments.length; i++) {
+      //   const dayOfWeek = this.weeklyAppointments[i].date.getDay();
+
+      // // console.log(dayOfWeekparse)
+      //   for(const day in this.weeklyAppointmentsSorted) {
+      //     const canceledAppointment = this.weeklyAppointmentsSorted[i].find(x => x.id === id);
+      //     console.log(canceledAppointment)
+      //     console.log(typeof(day));
+      //     console.log(typeof(dayOfWeek))
+      //     if(day === dayOfWeek.toString()) {
+      //       this.weeklyAppointments.splice(this.weeklyAppointments.indexOf(canceledAppointment), 1)
+      //     }
+      //     else {
+      //       console.log("nije")
+      //     }
+      //   }
+      // }
+
+        for (let i = 0; i <= 6; i++) {
+          const lengthOfAppointmentsForGivenDay = this.weeklyAppointmentsSorted[i].length;
+          for (let j = 0; j < lengthOfAppointmentsForGivenDay; j++) {
+            const appointmentToCheck = this.weeklyAppointmentsSorted[i][j] as Appointment;
+            if (appointmentToCheck.id == id) {
+              console.log('Removing: ', appointmentToCheck);
+              const indexOfAppointmentToRemove = this.weeklyAppointmentsSorted[i].indexOf(appointmentToCheck);
+              this.weeklyAppointmentsSorted[i]
+              .splice(indexOfAppointmentToRemove, 1)
+            }
+          }
+        }
     }, error => {
       this.invalidCancelWeekly = true;
     })

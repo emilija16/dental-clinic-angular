@@ -16,6 +16,7 @@
             <input type="text" class="form-control" id="phone" name="phone" #phone placeholder="Enter phone number" required [(ngModel)]="appointment.phone">
         </div>
       <div class="form-group">
+        <label for="email">Email</label>
         <input type="text" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" 
                id="email" name="email" [(ngModel)]="appointment.email" #email="ngModel" placeholder="Email">
         <div *ngIf="email.errors &&(email.touched || email.dirty)" class="alert alert-danger">

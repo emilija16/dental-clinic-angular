@@ -26,6 +26,7 @@ export class IdentificationPatientComponent implements OnInit {
   onSubmit() {
     for(let i = 0; i < this.appointmentsList.length; i++) {
       if(this.appointmentsList[i].jmbg === this.jmbg) {
+        localStorage.setItem("patientJmbg", this.jmbg);
         this.router.navigate(['patient-appointments', this.jmbg])
       } else {
         this.invalidJmbg = true;

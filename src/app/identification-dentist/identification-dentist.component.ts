@@ -28,6 +28,7 @@ export class IdentificationDentistComponent implements OnInit {
 
   onSubmit() {
     if(this.jmbg === this.dentistJmbg) {
+      localStorage.setItem("dentistJmbg", this.jmbg)
       this.router.navigate(['dentist-appointments'])
     } else {
       this.invalidJmbg = true;

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Appointment } from '../appointment';
 import { AppointmentService } from '../appointment.service';
 
@@ -14,23 +14,28 @@ export class PatientAppointmentsComponent implements OnInit {
   patientAppointments: Appointment[] = [];
   invalidCancel = false;
 
-  constructor(private appointmentService: AppointmentService, private route: ActivatedRoute) { }
+  constructor(private appointmentService: AppointmentService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
    this.getPatientAppointments()
   }
 
   getPatientAppointments(): void {
-    const jmbg = this.route.snapshot.params.jmbg;
-    this.appointmentService.getAllAppointments().subscribe(data => {
-      this.appointments = data;
-      for(let i = 0; i < this.appointments.length; i++) {
-      if(this.appointments[i].jmbg === jmbg && this.appointments[i].canceled !== true) {
-          this.patientAppointments.push(this.appointments[i]);
-          console.log(this.patientAppointments)
-        }  
-      }
-    })
+    if(localStorage.getItem("patientJmbg") !== null) {
+      const jmbg = this.route.snapshot.params.jmbg;
+      this.appointmentService.getAllAppointments().subscribe(data => {
+        this.appointments = data;
+        for(let i = 0; i < this.appointments.length; i++) {
+        if(this.appointments[i].jmbg === jmbg && this.appointments[i].canceled !== true) {
+            this.patientAppointments.push(this.appointments[i]);
+            console.log(this.patientAppointments)
+          }  
+        }
+      })
+    }
+    else {
+      this.router.navigate(['identification-patient'])
+    }
   }
 
   cancel(id: number): void {
